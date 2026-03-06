@@ -4,6 +4,18 @@ All notable changes to this project are documented here.
 
 ---
 
+## [1.1.0] — 2026-03-06
+
+### Added
+- 8 new pattern categories: notability name-dropping, superficial -ing analyses, promotional language, formulaic challenges, false ranges, inline-header lists, title case headings, cutoff disclaimers
+- 5 new word table entries (nestled, vibrant, thriving, despite challenges, showcasing)
+- Skill now covers 21 pattern categories with 43 word/phrase replacements
+
+### Changed
+- `README.md` — expanded full example (6 paragraphs → 4 clean sentences, 40+ tells flagged); added per-pattern before/after table organized into Content, Language, Structure, Communication groups; updated pattern count and replacement table count throughout
+
+---
+
 ## [1.0.0] — 2026-03-05
 
 ### Added
