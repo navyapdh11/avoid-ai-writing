@@ -4,36 +4,6 @@ A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that audit
 
 Paste any text, get back a clean version with every AI tell identified, fixed, and explained. A built-in second pass re-reads the rewrite to catch patterns that survived the first edit.
 
-## Full Example
-
-**Before (AI-generated):**
-
-> Certainly! Here's a comprehensive overview of Acme's Series B.
->
-> Acme Analytics, a vibrant startup nestled in the heart of Boulder's thriving tech ecosystem, has secured $40M in Series B funding — marking a watershed moment for the company and the observability landscape at large. The round was led by Sequoia, with participation from Andreessen Horowitz, Y Combinator, and Index Ventures, underscoring the robust investor confidence in Acme's vision.
->
-> The platform serves as a unified hub for engineering teams, featuring real-time dashboards, boasting sub-second query performance, and presenting a seamless integration layer. It's not just another monitoring tool — it's a paradigm shift in how organizations navigate complex distributed systems. Experts believe Acme is poised to disrupt the $15B observability market. Studies show that companies utilizing comprehensive monitoring solutions can ascertain issues 40% faster.
->
-> - 🚀 **Performance:** The platform streamlines incident response, empowering engineers to resolve issues faster.
-> - 💡 **Scale:** Acme fosters collaboration across teams, from frontend developers to SRE practitioners to platform builders to infrastructure engineers.
-> - ✅ **Adoption:** Customer adoption continues to accelerate, reflecting broader industry trends.
->
-> Moreover, Acme's approach showcases the potential of modern observability — symbolizing a shift toward proactive monitoring, reflecting years of R&D investment, and highlighting the intricate interplay between data collection and actionable intelligence. Despite challenges common in the crowded monitoring space, Acme continues to thrive. In order to fully capitalize on this momentum, the company plans to expand its go-to-market endeavors.
->
-> In conclusion, the future looks bright for Acme Analytics. Only time will tell how this game-changer will reshape the observability paradigm. Feel free to reach out if you'd like more details!
-
-**After (cleaned up):**
-
-> Acme Analytics raised a $40M Series B led by Sequoia. The Boulder-based startup makes an observability platform that runs queries in under a second and plugs into existing monitoring stacks without custom integration work.
->
-> The pitch is speed. Their median time-to-resolution is 12 minutes, compared to the 45-minute industry average that Datadog reported in 2024. That gap is why 380 companies are paying for it.
->
-> They'll use the money to hire sales reps in EMEA and add log management. The monitoring market is crowded, but Acme's bet is that most teams still stitch together three or four tools and lose time switching between them.
-
-**What the skill caught:** chatbot artifacts (Certainly!, Feel free to reach out), 3 em dashes, promotional language (vibrant, nestled, thriving), significance inflation (watershed moment), copula avoidance (serves as, featuring, boasting, presenting), 9 word replacements (landscape, robust, seamless, paradigm, streamline, empower, foster, utilize, ascertain, endeavor), synonym cycling (developers/practitioners/builders/engineers), negative parallelism (It's not just X, it's Y), notability name-dropping (Sequoia, a16z, YC, Index stacked for credibility), vague attributions (Experts believe, Studies show), filler phrases (In order to, Moreover), inline-header list with emoji, superficial -ing analysis (symbolizing... reflecting... highlighting...), formulaic challenges (Despite challenges... continues to thrive), generic conclusion (the future looks bright, only time will tell), false range implied in the adoption bullet.
-
-That's 35+ AI tells in one short announcement.
-
 ## Why a skill, not just a prompt
 
 A one-shot "make this sound human" prompt catches the obvious stuff. This skill is different:
@@ -43,6 +13,54 @@ A one-shot "make this sound human" prompt catches the obvious stuff. This skill 
 - **43-entry replacement table** — not vibes-based. Every flagged word has a specific, plainer alternative. "Leverage" → "use." "Commence" → "start." No judgment calls.
 - **21 pattern categories** — see the full list below, each with before/after examples.
 - **Claude Code native** — installs as a skill with YAML frontmatter, works with slash commands, integrates into your existing workflow.
+
+## Installation & Usage
+
+### Option 1: Clone into skills directory
+
+```bash
+git clone https://github.com/conorbronsdon/avoid-ai-writing ~/.claude/skills/avoid-ai-writing
+```
+
+### Option 2: Copy the file directly
+
+Download `SKILL.md` and place it in any directory that Claude Code can read. Reference it in your `CLAUDE.md`:
+
+```markdown
+- Editing for AI patterns → read `path/to/avoid-ai-writing/SKILL.md`
+```
+
+### Option 3: Use as a slash command
+
+Create a command file (e.g., `~/.claude/commands/clean-ai-writing.md`):
+
+```markdown
+---
+description: Audit and rewrite content to remove AI writing patterns
+---
+
+$ARGUMENTS
+
+Read and follow the instructions in ~/.claude/skills/avoid-ai-writing/SKILL.md
+```
+
+Then use `/clean-ai-writing <your text>` in Claude Code.
+
+### Triggering the skill
+
+Once installed, ask Claude Code to clean up AI writing:
+
+- "Remove AI-isms from this post"
+- "Audit this draft for AI tells"
+- "Make this sound less like AI"
+- "Clean up AI writing in this paragraph"
+
+The skill returns four sections:
+
+1. **Issues found** — every AI-ism identified, with the text quoted
+2. **Rewritten version** — clean version with all AI-isms removed
+3. **What changed** — summary of the major edits
+4. **Second-pass audit** — re-reads the rewrite and catches any surviving tells
 
 ## 21 Patterns Detected
 
@@ -87,53 +105,35 @@ A one-shot "make this sound human" prompt catches the obvious stuff. This skill 
 | 20 | **Cutoff disclaimers** | "While details are limited in available sources..." | Find sources or remove |
 | 21 | **Generic conclusions** | "The future looks bright," "Only time will tell" | Specific closing thought or cut |
 
-## Installation
+## Full Example
 
-### Option 1: Clone into skills directory
+**Before (AI-generated):**
 
-```bash
-git clone https://github.com/conorbronsdon/avoid-ai-writing ~/.claude/skills/avoid-ai-writing
-```
+> Certainly! Here's a comprehensive overview of Acme's Series B.
+>
+> Acme Analytics, a vibrant startup nestled in the heart of Boulder's thriving tech ecosystem, has secured $40M in Series B funding — marking a watershed moment for the company and the observability landscape at large. The round was led by Sequoia, with participation from Andreessen Horowitz, Y Combinator, and Index Ventures, underscoring the robust investor confidence in Acme's vision.
+>
+> The platform serves as a unified hub for engineering teams, featuring real-time dashboards, boasting sub-second query performance, and presenting a seamless integration layer. It's not just another monitoring tool — it's a paradigm shift in how organizations navigate complex distributed systems. Experts believe Acme is poised to disrupt the $15B observability market. Studies show that companies utilizing comprehensive monitoring solutions can ascertain issues 40% faster.
+>
+> - 🚀 **Performance:** The platform streamlines incident response, empowering engineers to resolve issues faster.
+> - 💡 **Scale:** Acme fosters collaboration across teams, from frontend developers to SRE practitioners to platform builders to infrastructure engineers.
+> - ✅ **Adoption:** Customer adoption continues to accelerate, reflecting broader industry trends.
+>
+> Moreover, Acme's approach showcases the potential of modern observability — symbolizing a shift toward proactive monitoring, reflecting years of R&D investment, and highlighting the intricate interplay between data collection and actionable intelligence. Despite challenges common in the crowded monitoring space, Acme continues to thrive. In order to fully capitalize on this momentum, the company plans to expand its go-to-market endeavors.
+>
+> In conclusion, the future looks bright for Acme Analytics. Only time will tell how this game-changer will reshape the observability paradigm. Feel free to reach out if you'd like more details!
 
-### Option 2: Copy the file directly
+**After (cleaned up):**
 
-Download `SKILL.md` and place it in any directory that Claude Code can read. Reference it in your `CLAUDE.md`:
+> Acme Analytics raised a $40M Series B led by Sequoia. The Boulder-based startup makes an observability platform that runs queries in under a second and plugs into existing monitoring stacks without custom integration work.
+>
+> The pitch is speed. Their median time-to-resolution is 12 minutes, compared to the 45-minute industry average that Datadog reported in 2024. That gap is why 380 companies are paying for it.
+>
+> They'll use the money to hire sales reps in EMEA and add log management. The monitoring market is crowded, but Acme's bet is that most teams still stitch together three or four tools and lose time switching between them.
 
-```markdown
-- Editing for AI patterns → read `path/to/avoid-ai-writing/SKILL.md`
-```
+**What the skill caught:** chatbot artifacts (Certainly!, Feel free to reach out), 3 em dashes, promotional language (vibrant, nestled, thriving), significance inflation (watershed moment), copula avoidance (serves as, featuring, boasting, presenting), 9 word replacements (landscape, robust, seamless, paradigm, streamline, empower, foster, utilize, ascertain, endeavor), synonym cycling (developers/practitioners/builders/engineers), negative parallelism (It's not just X, it's Y), notability name-dropping (Sequoia, a16z, YC, Index stacked for credibility), vague attributions (Experts believe, Studies show), filler phrases (In order to, Moreover), inline-header list with emoji, superficial -ing analysis (symbolizing... reflecting... highlighting...), formulaic challenges (Despite challenges... continues to thrive), generic conclusion (the future looks bright, only time will tell), false range implied in the adoption bullet.
 
-### Option 3: Use as a slash command
-
-Create a command file (e.g., `~/.claude/commands/clean-ai-writing.md`):
-
-```markdown
----
-description: Audit and rewrite content to remove AI writing patterns
----
-
-$ARGUMENTS
-
-Read and follow the instructions in ~/.claude/skills/avoid-ai-writing/SKILL.md
-```
-
-Then use `/clean-ai-writing <your text>` in Claude Code.
-
-## Usage
-
-Once installed, ask Claude Code to clean up AI writing:
-
-- "Remove AI-isms from this post"
-- "Audit this draft for AI tells"
-- "Make this sound less like AI"
-- "Clean up AI writing in this paragraph"
-
-The skill returns four sections:
-
-1. **Issues found** — every AI-ism identified, with the text quoted
-2. **Rewritten version** — clean version with all AI-isms removed
-3. **What changed** — summary of the major edits
-4. **Second-pass audit** — re-reads the rewrite and catches any surviving tells
+That's 35+ AI tells in one short announcement.
 
 ## Credits
 
