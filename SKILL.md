@@ -154,6 +154,12 @@ These slot-fill constructions signal that a sentence was generated, not written.
 ### Cutoff disclaimers
 - "While specific details are limited based on available information," "As of my last update," "I don't have access to real-time data." These are model limitations leaking into prose. Either find the information or remove the hedge. Never publish a sentence that admits the writer didn't look something up.
 
+### Emotional flatline
+- AI claims emotions as a structural crutch without conveying them through the writing: "What surprised me most," "I was fascinated to discover," "What struck me was," "I was excited to learn," "The most interesting part."
+- Two problems. First, it's tell-don't-show: if the thing is genuinely surprising, the reader should feel that from the content, not from the writer announcing it. Second, these phrases are massively overused as list introductions and transitions. They're filler wearing an emotion costume.
+- This pattern isn't always AI. It's also a sign of lazy human writing on autopilot. Flag it either way.
+- The fix isn't "never say surprised." It's: if you claim an emotion, the writing around it should earn it. Otherwise cut the claim and present the thing directly.
+
 ---
 
 ## Output format

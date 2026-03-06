@@ -4,6 +4,14 @@ All notable changes to this project are documented here.
 
 ---
 
+## [1.2.0] — 2026-03-06
+
+### Added
+- New pattern category: emotional flatline (AI claims emotions as structural crutch without conveying them; also flags lazy human writing)
+- Skill now covers 22 pattern categories with 43 word/phrase replacements
+
+---
+
 ## [1.1.0] — 2026-03-06
 
 ### Added

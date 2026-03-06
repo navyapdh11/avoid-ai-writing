@@ -11,7 +11,7 @@ A one-shot "make this sound human" prompt catches the obvious stuff. This skill 
 - **Structured audit** — returns identified issues with quoted text, the rewrite, a change summary, and a second-pass audit in four discrete sections. You see exactly what changed and why.
 - **Two-pass detection** — the second pass re-reads the rewrite and catches patterns that survive the first edit: recycled transitions, lingering inflation, copula swaps that snuck through.
 - **43-entry replacement table** — not vibes-based. Every flagged word has a specific, plainer alternative. "Leverage" → "use." "Commence" → "start." No judgment calls.
-- **21 pattern categories** — see the full list below, each with before/after examples.
+- **22 pattern categories** — see the full list below, each with before/after examples.
 - **Claude Code native** — installs as a skill with YAML frontmatter, works with slash commands, integrates into your existing workflow.
 
 ## Installation & Usage
@@ -62,7 +62,7 @@ The skill returns four sections:
 3. **What changed** — summary of the major edits
 4. **Second-pass audit** — re-reads the rewrite and catches any surviving tells
 
-## 21 Patterns Detected
+## 22 Patterns Detected
 
 ### Content Patterns
 
@@ -104,6 +104,7 @@ The skill returns four sections:
 | 19 | **Chatbot artifacts** | "I hope this helps! Let me know if..." | Remove entirely |
 | 20 | **Cutoff disclaimers** | "While details are limited in available sources..." | Find sources or remove |
 | 21 | **Generic conclusions** | "The future looks bright," "Only time will tell" | Specific closing thought or cut |
+| 22 | **Emotional flatline** | "What surprised me most," "I was fascinated to discover" | Earn the emotion or cut the claim |
 
 ## Full Example
 
