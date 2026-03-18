@@ -243,6 +243,41 @@ These slot-fill constructions signal that a sentence was generated, not written.
 - This pattern isn't always AI. It's also a sign of lazy human writing on autopilot. Flag it either way.
 - The fix isn't "never say surprised." It's: if you claim an emotion, the writing around it should earn it. Otherwise cut the claim and present the thing directly.
 
+### Reasoning chain artifacts
+- "Let me think step by step," "Breaking this down," "To approach this systematically," "Step 1:," "Here's my thought process," "First, let's consider," "Working through this logically" — these are artifacts of chain-of-thought reasoning leaking into published prose. The reader doesn't need to see the scaffolding. State the conclusion, then the evidence.
+- Also watch for numbered reasoning steps that read like an internal monologue rather than an argument meant for an audience.
+
+### Sycophantic tone
+- "Great question!", "Excellent point!", "You're absolutely right!", "That's a really insightful observation" — these are conversational rewards from chat interfaces, not writing. Remove entirely.
+- Distinct from chatbot artifacts: sycophancy specifically validates the reader/questioner rather than just performing helpfulness.
+
+### Acknowledgment loops
+- "You're asking about," "The question of whether," "To answer your question," "That's a great question. The..." — AI restates the prompt before answering. In writing, this is pure filler. The reader knows what they asked. Just answer.
+- Related pattern: opening a section by summarizing what the previous section said. If the structure is clear, the reader doesn't need a recap.
+
+### Confidence calibration phrases
+- "It's worth noting that," "Interestingly," "Surprisingly," "Importantly," "Significantly," "Notably," "Certainly," "Undoubtedly," "Without a doubt" — AI uses these to signal how the reader should feel about a fact instead of letting the fact speak for itself.
+- One "notably" in a 2,000-word piece is fine. Three in 500 words is AI-style emphasis stacking. Flag by density.
+
+### Excessive structure
+- Too many headers in short text: more than 3 headings in under 300 words is almost always AI trying to look organized. Merge sections or use prose transitions instead.
+- Too many list items: 8+ bullet points in under 200 words means the content should be a paragraph, not a list.
+- Formulaic section headers: "Overview," "Key Points," "Summary," "Conclusion," "Introduction" — these are default AI scaffolding. Use headers that tell the reader something specific about what follows.
+
+### Rhythm and uniformity
+
+These aren't individual word or phrase problems — they're patterns in how the text flows as a whole. AI text is metronomic; human text has varied rhythm.
+
+- **Sentence length uniformity**: If most sentences are 15–25 words, the text sounds robotic. Mix short punchy sentences (3–8 words) with longer flowing ones (20+). Fragments work. Questions break the monotony.
+- **Paragraph length uniformity**: If every paragraph is 3–5 sentences and roughly the same size, vary deliberately. Some paragraphs should be one sentence. Some should be longer.
+- **Vocabulary repetition vs. synonym cycling**: AI either repeats the same word mechanically or cycles through synonyms conspicuously. Human writers repeat when the word is right and vary when it's natural — there's no formula.
+- **Read-aloud test**: If the text sounds like it could be read by a text-to-speech engine without sounding weird, it's probably too uniform. Human writing has rhythm that resists robotic delivery.
+- **Missing first-person perspective**: Where appropriate, the writer should have opinions, preferences, and reactions. AI is relentlessly neutral. If the piece is supposed to have a voice, the absence of "I think," "in my experience," or a stated preference is itself an AI tell.
+
+### When to rewrite from scratch vs. patch
+
+If the text has 5+ flagged vocabulary hits across multiple categories, 3+ distinct pattern categories triggered, and uniform sentence/paragraph length, patching individual phrases won't fix it — the structure itself is AI-generated. Advise a full rewrite: state the core point in one sentence, then rebuild from there.
+
 ---
 
 ## Output format
@@ -266,6 +301,13 @@ Re-read the rewritten version from section 2. Identify any remaining AI tells th
 ## Tone calibration
 
 The goal is writing that sounds like a person wrote it. Direct. Specific. The writing should demonstrate confidence, not assert it.
+
+Five principles for human-sounding rewrites:
+1. **Vary sentence length** — mix short with long. Fragments are fine.
+2. **Be concrete** — replace vague claims with numbers, names, dates, or examples.
+3. **Have a voice** — where appropriate, use first person, state preferences, show reactions.
+4. **Cut the neutrality** — humans have opinions. If the piece is supposed to take a position, take it.
+5. **Earn your emphasis** — don't tell the reader something is interesting. Make it interesting.
 
 If the original writing is already strong, say so and make only the necessary cuts. Don't over-edit for the sake of it.
 

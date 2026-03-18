@@ -4,6 +4,23 @@ All notable changes to this project are documented here.
 
 ---
 
+## [2.1.0] — 2026-03-18
+
+### Added
+- 5 new pattern categories: reasoning chain artifacts, sycophantic tone, acknowledgment loops, confidence calibration phrases, excessive structure
+- New "Rhythm and uniformity" section — checks for sentence length uniformity, paragraph length uniformity, missing first-person perspective, and read-aloud test guidance
+- New "When to rewrite from scratch vs. patch" threshold — advises full rewrites when AI density is too high for patching
+- 5 rewrite principles in tone calibration section (vary length, be concrete, have a voice, cut neutrality, earn emphasis)
+- New "Meta Patterns" group in README pattern table
+- Expanded credits: OpenClaw humanizer ecosystem (community patterns)
+
+### Changed
+- Pattern count: 23 → 30 categories
+- `README.md` — updated pattern count, added Meta Patterns table, expanded credits with source descriptions
+- Communication Patterns table in README now includes all communication patterns
+
+---
+
 ## [2.0.0] — 2026-03-18
 
 ### Added
