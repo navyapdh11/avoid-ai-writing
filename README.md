@@ -15,7 +15,7 @@ Paste any text or run against a file, get back a clean version with every AI tel
 **Output:**
 > Acme Analytics raised a $40M Series B led by Sequoia. The Boulder-based startup makes an observability platform that runs queries in under a second and plugs into existing monitoring stacks without custom integration work.
 
-**What it caught:** chatbot opener ("Certainly!"), promotional language ("vibrant," "nestled," "thriving"), significance inflation ("watershed moment"), copula avoidance ("serves as," "featuring," "boasting"), 4 word replacements, vague attribution ("experts believe"), filler ("Moreover"), generic conclusion ("the future looks bright"). 15+ AI tells in one paragraph.
+**What it caught:** chatbot opener ("Certainly!"), promotional language ("vibrant," "nestled," "thriving"), significance inflation ("watershed moment"), copula avoidance ("serves as," "featuring," "boasting"), 4 word replacements, vague attribution ("experts believe"), filler ("Moreover"), generic conclusion ("the future looks bright"), over-polished uniformity. 15+ AI tells in one paragraph.
 
 ## Why a skill, not just a prompt
 
@@ -91,7 +91,7 @@ The skill returns four sections:
 3. **What changed** — summary of the major edits
 4. **Second-pass audit** — re-reads the rewrite and catches any surviving tells
 
-## 34 Patterns Detected
+## 36 Patterns Detected
 
 ### Content Patterns
 
@@ -103,50 +103,56 @@ The skill returns four sections:
 | 4 | **Promotional language** | "nestled within the breathtaking region" | "is a town in the Gonder region" |
 | 5 | **Vague attributions** | "Experts believe it plays a crucial role" | "according to a 2019 survey by Gartner" |
 | 6 | **Formulaic challenges** | "Despite challenges... continues to thrive" | Name the challenge and the response |
+| 7 | **Novelty inflation** | "He introduced a term I hadn't heard before" | "He walked through how X works in practice" |
 
 ### Language Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 7 | **Word/phrase replacements (3 tiers)** | "leverage... robust... seamless... utilize" | "use... reliable... smooth... use" |
-| 8 | **Copula avoidance** | "serves as... features... boasts" | "is... has" |
-| 9 | **Synonym cycling** | "developers... engineers... practitioners... builders" | "developers" (repeat the clear word) |
-| 10 | **Template phrases** | "a [adj] step towards [adj] infrastructure" | Describe the specific outcome |
-| 11 | **Filler phrases** | "In order to," "Due to the fact that" | "To," "Because" |
-| 12 | **False ranges** | "from the Big Bang to dark matter" | List the actual topics |
+| 8 | **Word/phrase replacements (3 tiers)** | "leverage... robust... seamless... utilize" | "use... reliable... smooth... use" |
+| 9 | **Copula avoidance** | "serves as... features... boasts" | "is... has" |
+| 10 | **Synonym cycling** | "developers... engineers... practitioners... builders" | "developers" (repeat the clear word) |
+| 11 | **Template phrases** | "a [adj] step towards [adj] infrastructure" | Describe the specific outcome |
+| 12 | **Filler phrases** | "In order to," "Due to the fact that" | "To," "Because" |
+| 13 | **False ranges** | "from the Big Bang to dark matter" | List the actual topics |
+| 14 | **Parenthetical hedging** | "tools (like X and Y)" | Name them directly or cut |
 
 ### Structure Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 13 | **Formatting** | Em dashes (— and --), bold overuse, emoji headers, bullet-heavy | Commas/periods, prose paragraphs |
-| 14 | **Sentence structure** | "It's not X, it's Y" + hollow intensifiers + hedging | Direct positive statements |
-| 15 | **Structural issues** | Uniform paragraphs, formulaic openings, too-clean grammar | Varied length, lead with the point |
-| 16 | **Transition phrases** | "Moreover," "Furthermore," "In today's [X]" | "and," "also," or restructure |
-| 17 | **Inline-header lists** | "**Speed:** Speed improved by..." | Write the point directly |
-| 18 | **Title case headings** | "Strategic Negotiations And Partnerships" | "Strategic negotiations and partnerships" |
+| 15 | **Formatting** | Em dashes (— and --), bold overuse, emoji headers, bullet-heavy | Commas/periods, prose paragraphs |
+| 16 | **Sentence structure** | "It's not X, it's Y" + hollow intensifiers + hedging | Direct positive statements |
+| 17 | **Structural issues** | Uniform paragraphs, formulaic openings, too-clean grammar | Varied length, lead with the point |
+| 18 | **Transition phrases** | "Moreover," "Furthermore," "In today's [X]" | "and," "also," or restructure |
+| 19 | **Inline-header lists** | "**Speed:** Speed improved by..." | Write the point directly |
+| 20 | **Title case headings** | "Strategic Negotiations And Partnerships" | "Strategic negotiations and partnerships" |
+| 21 | **Numbered list inflation** | "Here are 7 reasons why..." | Cut to the 2-3 that matter |
+| 22 | **False concession** | "While X has limitations, it's still remarkable" | State the real tradeoff |
+| 23 | **Rhetorical question openers** | "What if there were a better way to...?" | Lead with the claim |
 
 ### Communication Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 19 | **Chatbot artifacts** | "I hope this helps! Let me know if..." | Remove entirely |
-| 20 | **"Let's" constructions** | "Let's explore," "Let's break this down" | Just start with the point |
-| 21 | **Cutoff disclaimers** | "While details are limited in available sources..." | Find sources or remove |
-| 22 | **Generic conclusions** | "The future looks bright," "Only time will tell" | Specific closing thought or cut |
-| 23 | **Emotional flatline** | "What surprised me most," "I was fascinated to discover" | Earn the emotion or cut the claim |
-| 24 | **Reasoning chain artifacts** | "Let me think step by step," "Breaking this down" | State conclusion, then evidence |
-| 25 | **Sycophantic tone** | "Great question!", "You're absolutely right!" | Remove entirely |
-| 26 | **Acknowledgment loops** | "You're asking about," "To answer your question" | Just answer directly |
-| 27 | **Confidence calibration** | "It's worth noting," "Interestingly," "Surprisingly" | Let the fact speak for itself |
+| 24 | **Chatbot artifacts** | "I hope this helps! Let me know if..." | Remove entirely |
+| 25 | **"Let's" constructions** | "Let's explore," "Let's break this down" | Just start with the point |
+| 26 | **Cutoff disclaimers** | "While details are limited in available sources..." | Find sources or remove |
+| 27 | **Generic conclusions** | "The future looks bright," "Only time will tell" | Specific closing thought or cut |
+| 28 | **Emotional flatline** | "What surprised me most," "I was fascinated to discover" | Earn the emotion or cut the claim |
+| 29 | **Reasoning chain artifacts** | "Let me think step by step," "Breaking this down" | State conclusion, then evidence |
+| 30 | **Sycophantic tone** | "Great question!", "You're absolutely right!" | Remove entirely |
+| 31 | **Acknowledgment loops** | "You're asking about," "To answer your question" | Just answer directly |
+| 32 | **Confidence calibration** | "It's worth noting," "Interestingly," "Surprisingly" | Let the fact speak for itself |
 
 ### Meta Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 28 | **Excessive structure** | 5 headers in 200 words, "Overview:", "Key Points:" | Merge sections, use specific headers |
-| 29 | **Rhythm and uniformity** | All sentences 15–25 words, all paragraphs same length | Mix short/long, fragments, questions |
-| 30 | **Rewrite-vs-patch threshold** | 5+ vocabulary flags + 3+ pattern categories + uniform rhythm | Advise full rewrite, not patching |
+| 33 | **Excessive structure** | 5 headers in 200 words, "Overview:", "Key Points:" | Merge sections, use specific headers |
+| 34 | **Rhythm and uniformity** | All sentences 15–25 words, all paragraphs same length | Mix short/long, fragments, questions |
+| 35 | **Over-polishing** | Every irregularity sanded away, perfectly uniform prose | Keep natural disfluency, varied rhythm |
+| 36 | **Rewrite-vs-patch threshold** | 5+ vocabulary flags + 3+ pattern categories + uniform rhythm | Advise full rewrite, not patching |
 
 ## Full Example
 
@@ -181,6 +187,7 @@ That's 35+ AI tells.
 ## Credits
 
 Pattern research informed by:
+- [Pangram Labs](https://www.pangram.com/) AI detection research — structural regularity insights, vocabulary flags from a decoder-only classifier trained on 28M human documents
 - Wikipedia's [Signs of AI-generated text](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) documentation — the canonical reference for AI writing tells, maintained by Wikipedia editors
 - [blader/humanizer](https://github.com/blader/humanizer) Claude Code skill
 - [brandonwise/humanizer](https://github.com/brandonwise/humanizer) — tiered vocabulary system, statistical analysis research (burstiness, sentence length variation, trigram repetition), and rewrite philosophy
