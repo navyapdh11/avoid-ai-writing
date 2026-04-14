@@ -14,3 +14,9 @@ Desktop.ini
 # Environment
 .env
 .env.local
+
+# Build outputs
+*.pdf
+*.docx
+dist/
+build/

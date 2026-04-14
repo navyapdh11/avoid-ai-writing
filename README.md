@@ -6,24 +6,17 @@ Audit & rewrite content to remove AI writing patterns. A practical skill for any
 
 [![GitHub stars](https://img.shields.io/github/stars/conorbronsdon/avoid-ai-writing?style=social)](https://github.com/conorbronsdon/avoid-ai-writing/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Version](https://img.shields.io/badge/version-4.0.0-green?style=flat-square)](CHANGELOG.md)
 [![X](https://img.shields.io/badge/X-@ConorBronsdon-black?style=flat-square&logo=x)](https://x.com/ConorBronsdon)
 [![Web App](https://img.shields.io/badge/Try_the_web_app-ff6b35?style=flat-square&logo=vercel&logoColor=white)](https://avoid-ai-writing-app.vercel.app)
 
 </div>
-<div align="center">
-The community made a meme coin to support the project 🤯 CA: BsidWuYJnayqMXVsLGr34524vmZ1BrWFhPer3198pump
-</div>
-
----
-
 
 A portable writing skill for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [OpenClaw](https://github.com/openclaw/openclaw), [Hermes](https://github.com/NousResearch/hermes-agent), and any other [agentskills.io](https://agentskills.io)-compatible agent. Audits and rewrites content to remove AI writing patterns ("AI-isms").
 
 **Two modes:**
-- **Rewrite** (default) — flags AI patterns and rewrites the text to fix them. A built-in second pass catches patterns that survived the first edit. Includes early exit for clean text.
+- **Rewrite** (default) — flags AI patterns and rewrites the text to fix them. A built-in second pass catches patterns that survived the first edit. Returns a human-likeness score (0-10).
 - **Detect** — flags AI patterns without rewriting. Shows which flags are real problems vs. judgment calls. Useful when patterns might be intentional, when auditing content you don't want altered, or when you just want a quick scan.
-
-**New in v3.4.0:** Guardrails against prompt injection, non-English text handling, code-heavy document handling, short-input optimization (under 50 words), creative writing profile, structured output format with severity tags, conditional second-pass audit for token efficiency.
 
 ## Quick demo
 
@@ -39,11 +32,12 @@ A portable writing skill for [Claude Code](https://docs.anthropic.com/en/docs/cl
 
 A one-shot "make this sound human" prompt catches the obvious stuff. This skill is different:
 
-- **Structured audit** — returns identified issues with quoted text, the rewrite, a change summary, and a second-pass audit in four discrete sections. You see exactly what changed and why.
+- **Structured audit** — returns identified issues with quoted text, the rewrite, a change summary, a second-pass audit, and a human-likeness score (0-10) in five discrete sections. You see exactly what changed and why.
 - **Two-pass detection** — the second pass re-reads the rewrite and catches patterns that survive the first edit: recycled transitions, lingering inflation, copula swaps that snuck through.
-- **110-entry word replacement table across 3 tiers** — not vibes-based. Every flagged word has a specific, plainer alternative. "Leverage" → "use." "Commence" → "start." Tier 1 words are always flagged, Tier 2 words flag when they cluster, Tier 3 words flag only at high density. This reduces false positives while catching real AI tells.
-- **35 pattern categories** — see the full list below, each with before/after examples. Includes rhythm/uniformity checks and a rewrite-vs-patch threshold.
+- **106-entry word replacement table across 3 tiers** — not vibes-based. Every flagged word has a specific, plainer alternative. "Leverage" → "use." "Commence" → "start." Tier 1 words are always flagged, Tier 2 words flag when they cluster, Tier 3 words flag only at high density. This reduces false positives while catching real AI tells.
+- **41 pattern categories** — see the full list below, each with before/after examples. Includes rhythm/uniformity checks, metaphor stacking, date-range vagueness, quotation stuffing, and a rewrite-vs-patch threshold.
 - **Detect mode** — flag patterns without rewriting. See which flags are real problems vs. judgment calls. Useful when patterns might be intentional or you're auditing content you don't want altered.
+- **Context profiles** — 6 profiles (LinkedIn, blog, technical-blog, investor-email, docs, casual) with a 35-rule tolerance matrix that adjusts strictness per context.
 - **Works with Claude Code and OpenClaw** — single `SKILL.md` with compatible frontmatter for both platforms.
 
 ## Installation & Usage
@@ -102,13 +96,16 @@ Once installed, ask your assistant to clean up AI writing:
 - "Audit this draft for AI tells"
 - "Make this sound less like AI"
 - "Clean up AI writing in this paragraph"
+- "Scan this for AI patterns" (detect mode)
+- "Flag only — don't rewrite" (detect mode)
 
-In **rewrite mode** (default), the skill returns four sections:
+In **rewrite mode** (default), the skill returns five sections:
 
-1. **Issues found** — every AI-ism identified, with the text quoted
+1. **Issues found** — every AI-ism identified, with the text quoted, grouped by severity
 2. **Rewritten version** — clean version with all AI-isms removed
 3. **What changed** — summary of the major edits
 4. **Second-pass audit** — re-reads the rewrite and catches any surviving tells
+5. **Human-likeness score** — 0-10 rating with justification
 
 In **detect mode**, the skill returns two sections:
 
@@ -117,7 +114,7 @@ In **detect mode**, the skill returns two sections:
 
 Trigger detect mode with: "detect," "flag only," "audit only," "just flag," "scan," or similar.
 
-## 35 Patterns Detected
+## 41 Patterns Detected
 
 ### Content Patterns
 
@@ -130,55 +127,62 @@ Trigger detect mode with: "detect," "flag only," "audit only," "just flag," "sca
 | 5 | **Vague attributions** | "Experts believe it plays a crucial role" | "according to a 2019 survey by Gartner" |
 | 6 | **Formulaic challenges** | "Despite challenges... continues to thrive" | Name the challenge and the response |
 | 7 | **Novelty inflation** | "He introduced a term I hadn't heard before" | "He walked through how X works in practice" |
+| 8 | **Date-range vagueness** | "In recent years," "Over the past few months" | Specific date or cut |
+| 9 | **Quotation stuffing** | "As Steve Jobs once said..." (uncontextualized) | Contextualized quote or cut |
 
 ### Language Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 8 | **Word/phrase replacements (3 tiers)** | "leverage... robust... seamless... utilize" | "use... reliable... smooth... use" |
-| 9 | **Copula avoidance** | "serves as... features... boasts" | "is... has" |
-| 10 | **Synonym cycling** | "developers... engineers... practitioners... builders" | "developers" (repeat the clear word) |
-| 11 | **Template phrases** | "a [adj] step towards [adj] infrastructure" | Describe the specific outcome |
-| 12 | **Filler phrases** | "In order to," "Due to the fact that" | "To," "Because" |
-| 13 | **False ranges** | "from the Big Bang to dark matter" | List the actual topics |
-| 14 | **Parenthetical hedging** | "tools (like X and Y)" | Name them directly or cut |
+| 10 | **Word/phrase replacements (3 tiers)** | "leverage... robust... seamless... utilize" | "use... reliable... smooth... use" |
+| 11 | **Copula-avoidance** | "serves as... features... boasts... constitutes" | "is... has" |
+| 12 | **Synonym cycling** | "developers... engineers... practitioners... builders" | "developers" (repeat the clear word) |
+| 13 | **Template phrases** | "a [adj] step towards [adj] infrastructure" | Describe the specific outcome |
+| 14 | **Filler phrases** | "In order to," "Due to the fact that" | "To," "Because" |
+| 15 | **False ranges** | "from the Big Bang to dark matter" | List the actual topics |
+| 16 | **Parenthetical hedging** | "tools (and, increasingly, X)" | Name them directly or cut |
+| 17 | **Hedge stacking** | "It's worth noting that it could potentially be argued..." | Direct statement |
+| 18 | **Metaphor stacking** | "The landscape is a tapestry of beacons" | Direct description |
 
 ### Structure Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 15 | **Formatting** | Em dashes (— and --), bold overuse, emoji headers, bullet-heavy | Commas/periods, prose paragraphs |
-| 16 | **Sentence structure** | "It's not X, it's Y" + hollow intensifiers + hedging | Direct positive statements |
-| 17 | **Structural issues** | Uniform paragraphs, formulaic openings, too-clean grammar | Varied length, lead with the point |
-| 18 | **Transition phrases** | "Moreover," "Furthermore," "In today's [X]" | "and," "also," or restructure |
-| 19 | **Inline-header lists** | "**Speed:** Speed improved by..." | Write the point directly |
-| 20 | **Title case headings** | "Strategic Negotiations And Partnerships" | "Strategic negotiations and partnerships" |
-| 21 | **Numbered list inflation** | "Here are 7 reasons why..." | Cut to the 2-3 that matter |
-| 22 | **False concession** | "While X has limitations, it's still remarkable" | State the real tradeoff |
-| 23 | **Rhetorical question openers** | "What if there were a better way to...?" | Lead with the claim |
+| 19 | **Formatting** | Em dashes (— and --), bold overuse, emoji headers, bullet-heavy | Commas/periods, prose paragraphs |
+| 20 | **Sentence structure** | "It's not X, it's Y" + hollow intensifiers + hedging | Direct positive statements |
+| 21 | **Structural issues** | Uniform paragraphs, formulaic openings, too-clean grammar | Varied length, lead with the point |
+| 22 | **Transition phrases** | "Moreover," "Furthermore," "In today's [X]" | "and," "also," or restructure |
+| 23 | **Inline-header lists** | "**Speed:** Speed improved by..." | Write the point directly |
+| 24 | **Title case headings** | "Strategic Negotiations And Partnerships" | "Strategic negotiations and partnerships" |
+| 25 | **Numbered list inflation** | "Here are 7 reasons why..." | Cut to the 2-3 that matter |
+| 26 | **False concession** | "While X has limitations, it's still remarkable" | State the real tradeoff |
+| 27 | **Rhetorical question openers** | "What if there were a better way to...?" | Lead with the claim |
+| 28 | **Stacked questions** | "What does this mean? And why now? And what can you do?" | Max 1 per section |
+| 29 | **Excessive structure** | 5 headers in 200 words, "Overview:", "Key Points:" | Merge sections, use specific headers |
+| 30 | **False dichotomy framing** | "The question isn't whether X — it's when" | State the claim directly |
 
 ### Communication Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 24 | **Chatbot artifacts** | "I hope this helps! Let me know if..." | Remove entirely |
-| 25 | **"Let's" constructions** | "Let's explore," "Let's break this down" | Just start with the point |
-| 26 | **Cutoff disclaimers** | "While details are limited in available sources..." | Find sources or remove |
-| 27 | **Generic conclusions** | "The future looks bright," "Only time will tell" | Specific closing thought or cut |
-| 28 | **Emotional flatline** | "What surprised me most," "I was fascinated to discover" | Earn the emotion or cut the claim |
-| 29 | **Reasoning chain artifacts** | "Let me think step by step," "Breaking this down" | State conclusion, then evidence |
-| 30 | **Sycophantic tone** | "Great question!", "You're absolutely right!" | Remove entirely |
-| 31 | **Acknowledgment loops** | "You're asking about," "To answer your question" | Just answer directly |
-| 32 | **Confidence calibration** | "It's worth noting," "Interestingly," "Surprisingly" | Let the fact speak for itself |
+| 31 | **Chatbot artifacts** | "I hope this helps! Let me know if..." | Remove entirely |
+| 32 | **"Let's" constructions** | "Let's explore," "Let's break this down" | Just start with the point |
+| 33 | **Cutoff disclaimers** | "While details are limited in available sources..." | Find sources or remove |
+| 34 | **Generic conclusions** | "The future looks bright," "Only time will tell" | Specific closing thought or cut |
+| 35 | **Emotional flatline** | "What surprised me most," "I was fascinated to discover" | Earn the emotion or cut the claim |
+| 36 | **False vulnerability** | "Full disclosure: I was skeptical at first, but..." | Show, don't announce |
+| 37 | **Reasoning chain artifacts** | "Let me think step by step," "Breaking this down" | State conclusion, then evidence |
+| 38 | **Sycophantic tone** | "Great question!", "You're absolutely right!" | Remove entirely |
+| 39 | **Acknowledgment loops** | "You're asking about," "To answer your question" | Just answer directly |
+| 40 | **Confidence calibration** | "It's worth noting," "Interestingly," "Surprisingly" | Let the fact speak for itself |
 
 ### Meta Patterns
 
 | # | Pattern | Before | After |
 |---|---------|--------|-------|
-| 33 | **Excessive structure** | 5 headers in 200 words, "Overview:", "Key Points:" | Merge sections, use specific headers |
-| 34 | **Rhythm and uniformity** | All sentences 15–25 words, all paragraphs same length | Mix short/long, fragments, questions |
-| 35 | **Over-polishing** | Every irregularity sanded away, perfectly uniform prose | Keep natural disfluency, varied rhythm |
-| 36 | **Rewrite-vs-patch threshold** | 5+ vocabulary flags + 3+ pattern categories + uniform rhythm | Advise full rewrite, not patching |
+| 41 | **Rhythm and uniformity** | All sentences 15-25 words, all paragraphs same length | Mix short/long, fragments, questions |
+
+> **Note**: "Rewrite-vs-patch threshold" (advise full rewrite when 5+ vocabulary flags + 3+ pattern categories + uniform rhythm) is a decision rule, not a pattern category. It is documented in the SKILL.md body.
 
 ## Full Example
 
@@ -190,9 +194,9 @@ Trigger detect mode with: "detect," "flag only," "audit only," "just flag," "sca
 >
 > The platform serves as a unified hub for engineering teams, featuring real-time dashboards, boasting sub-second query performance, and presenting a seamless integration layer. It's not just another monitoring tool — it's a paradigm shift in how organizations navigate complex distributed systems. Experts believe Acme is poised to disrupt the $15B observability market. Studies show that companies utilizing comprehensive monitoring solutions can ascertain issues 40% faster.
 >
-> - 🚀 **Performance:** The platform streamlines incident response, empowering engineers to resolve issues faster.
-> - 💡 **Scale:** Acme fosters collaboration across teams, from frontend developers to SRE practitioners to platform builders to infrastructure engineers.
-> - ✅ **Adoption:** Customer adoption continues to accelerate, reflecting broader industry trends.
+> - Performance: The platform streamlines incident response, empowering engineers to resolve issues faster.
+> - Scale: Acme fosters collaboration across teams, from frontend developers to SRE practitioners to platform builders to infrastructure engineers.
+> - Adoption: Customer adoption continues to accelerate, reflecting broader industry trends.
 >
 > Moreover, Acme's approach showcases the potential of modern observability — symbolizing a shift toward proactive monitoring, reflecting years of R&D investment, and highlighting the intricate interplay between data collection and actionable intelligence. Despite challenges common in the crowded monitoring space, Acme continues to thrive. In order to fully capitalize on this momentum, the company plans to expand its go-to-market endeavors.
 >
@@ -234,6 +238,10 @@ Pattern research informed by:
 - [OpenClaw](https://github.com/openclaw/openclaw) humanizer skill ecosystem — community patterns and vocabulary research
 
 Authored by [Conor Bronsdon](https://github.com/conorbronsdon) · [LinkedIn](https://www.linkedin.com/in/conorbronsdon/) · [Chain of Thought podcast](https://chainofthought.show)
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on submitting new patterns, vocabulary entries, or improvements.
 
 ## License
 

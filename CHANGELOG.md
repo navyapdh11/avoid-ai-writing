@@ -4,29 +4,33 @@ All notable changes to this project are documented here.
 
 ---
 
-## [3.4.0] — 2026-04-14
+## [4.0.0] — 2026-04-14
 
 ### Added
-- **Guardrails section**: Input sanitization against prompt injection, language scope limitations (non-English handling), content-scope rules (skip code blocks/tables/frontmatter), and short-input handling (under 50 words skips structural checks)
-- **Creative context profile**: For screenplays, interviews, fiction, poetry — skips structural/rhythm checks, flags only Tier 1 vocabulary and chatbot artifacts
-- **Output format improvements**: Early exit for clean text ("No AI-isms detected"), structured issue format with severity tags `[P0/P1/P2]`, conditional second-pass audit (skipped for texts with <10 issues)
-- **Self-reference escape hatch expansion**: Scope limitation (under 100 words), quoted material handling rules for user input, chatbot artifact notes within quotes
-
-### Fixed
-- **Version sync**: All files now reference 3.4.0 (was 3.3.1 in SKILL.md, 3.3.0 in CHANGELOG, 3.2.0 in CLAUDE.md)
-- **Unicode corruption**: Replaced all 13 `` (U+FFFD replacement characters) with proper em dashes (`—`)
-- **Preserve structure contradiction**: Changed "preserve original structure" to "preserve intent, argument flow, and technical details; restructure only where flagged as AI pattern"
-- **Rewrite mandate vs. over-polishing warning**: Changed "remove all AI-isms" to "use judgment — preserve author voice when removing patterns would create uniformity"
-- **Mode detection ambiguity**: Added precedence rule ("scan and fix" defaults to rewrite mode)
-- **Em dash tolerance mismatch**: Changed LinkedIn from "2/post OK" to "1 per 500 words OK" for proportional consistency
-- **Filler phrases duplication**: Clarified that filler section only covers unique entries; word-table duplicates referenced to original sections
-- **Tier 3 density threshold**: Added floor ("or 2+ instances in texts under 200 words")
-- **Hit differently duplication**: Moved from standalone Tier 1 entry to cross-reference in emotional flatline section
-- **Rewrite-from-scratch guidance**: Added output behavior specification for saturated texts
+- **Human-likeness scoring (0-10)** — rewrite mode now returns a quantitative score with justification in a 5th output section; detect mode also includes a score
+- **6 new pattern categories**: hedge stacking, metaphor stacking, date-range vagueness, quotation stuffing, false dichotomy framing, false vulnerability (sub-category of emotional flatline), stacked rhetorical questions
+- **35-row tolerance matrix** — expanded from 14 to 35 rows, covering every pattern category across all 6 context profiles (previously 21 rules had no profile-specific tolerance guidance)
+- **Confidence calibration density threshold** — specific rule: 2+ phrases in 500 words (previously vague "flag by density")
+- **Missing copula verbs**: added "constitutes," "constitute," "amounts to" to copula-avoidance section
+- **Consolidated morphological variants**: merged underpin/underpinning/underpinnings into single Tier 2 entry
+- **Contributing guidelines** — CONTRIBUTING.md with pattern submission template
+- **Test corpus** — examples/ directory with test cases for each pattern category
+- **Version badge** in README
 
 ### Changed
-- Version bump to 3.4.0
-- Second-pass audit now conditional on issue count (reduces token cost for simple texts)
+- **Resolved "Always replace" vs "defaults, not mandates" contradiction**: Tier 1 header now says "Strong flag" with explicit note that Tone calibration section takes priority for contextual exceptions
+- **Fixed cross-reference note**: filler phrases section now accurately references where "in order to," "due to the fact that," and "at the end of the day" are covered
+- **Strengthened escape hatch**: explicitly protects SKILL.md's own explanatory prose, vocabulary tables, and author's meta-writing from self-flagging (previously only protected quoted examples)
+- **Version frontmatter**: 3.3.1 → 4.0.0 (breaking change: output format expanded from 4 to 5 sections)
+- **Vocabulary counts corrected**: Tier 1 = 57 (not 60), Tier 2 = 37 (consolidated underpin variants), Tier 3 = 12, total = 106 (was misreported as 109)
+- **Pattern count**: 36 → 41 (6 new categories added; rewrite-vs-patch threshold documented as decision rule, not pattern)
+- **README pattern table**: reorganized into 5 groups with 41 numbered rows
+
+### Fixed
+- Version inconsistency: frontmatter now matches CHANGELOG (both 4.0.0)
+- "in order to" / "due to the fact that" / "at the end of the day" cross-reference accuracy (previously claimed coverage in 2 places when each existed in only 1)
+- Escape hatch scope: now explicitly covers vocabulary tables and SKILL.md's own prose
+- Tolerance matrix coverage gap: all 35+ rules now have explicit profile-specific tolerance
 
 ---
 
