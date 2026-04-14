@@ -11,7 +11,7 @@ Audit & rewrite content to remove AI writing patterns. A practical skill for any
 
 </div>
 <div align="center">
-The community made a meme coin to support the project🤯 CA: BsidWuYJnayqMXVsLGr34524vmZ1BrWFhPer3198pump
+The community made a meme coin to support the project 🤯 CA: BsidWuYJnayqMXVsLGr34524vmZ1BrWFhPer3198pump
 </div>
 
 ---
@@ -20,8 +20,10 @@ The community made a meme coin to support the project🤯 CA: BsidWuYJnayqMXVsLG
 A portable writing skill for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [OpenClaw](https://github.com/openclaw/openclaw), [Hermes](https://github.com/NousResearch/hermes-agent), and any other [agentskills.io](https://agentskills.io)-compatible agent. Audits and rewrites content to remove AI writing patterns ("AI-isms").
 
 **Two modes:**
-- **Rewrite** (default) — flags AI patterns and rewrites the text to fix them. A built-in second pass catches patterns that survived the first edit.
+- **Rewrite** (default) — flags AI patterns and rewrites the text to fix them. A built-in second pass catches patterns that survived the first edit. Includes early exit for clean text.
 - **Detect** — flags AI patterns without rewriting. Shows which flags are real problems vs. judgment calls. Useful when patterns might be intentional, when auditing content you don't want altered, or when you just want a quick scan.
+
+**New in v3.4.0:** Guardrails against prompt injection, non-English text handling, code-heavy document handling, short-input optimization (under 50 words), creative writing profile, structured output format with severity tags, conditional second-pass audit for token efficiency.
 
 ## Quick demo
 
@@ -39,8 +41,8 @@ A one-shot "make this sound human" prompt catches the obvious stuff. This skill 
 
 - **Structured audit** — returns identified issues with quoted text, the rewrite, a change summary, and a second-pass audit in four discrete sections. You see exactly what changed and why.
 - **Two-pass detection** — the second pass re-reads the rewrite and catches patterns that survive the first edit: recycled transitions, lingering inflation, copula swaps that snuck through.
-- **109-entry word replacement table across 3 tiers** — not vibes-based. Every flagged word has a specific, plainer alternative. "Leverage" → "use." "Commence" → "start." Tier 1 words are always flagged, Tier 2 words flag when they cluster, Tier 3 words flag only at high density. This reduces false positives while catching real AI tells.
-- **36 pattern categories** — see the full list below, each with before/after examples. Includes rhythm/uniformity checks and a rewrite-vs-patch threshold.
+- **110-entry word replacement table across 3 tiers** — not vibes-based. Every flagged word has a specific, plainer alternative. "Leverage" → "use." "Commence" → "start." Tier 1 words are always flagged, Tier 2 words flag when they cluster, Tier 3 words flag only at high density. This reduces false positives while catching real AI tells.
+- **35 pattern categories** — see the full list below, each with before/after examples. Includes rhythm/uniformity checks and a rewrite-vs-patch threshold.
 - **Detect mode** — flag patterns without rewriting. See which flags are real problems vs. judgment calls. Useful when patterns might be intentional or you're auditing content you don't want altered.
 - **Works with Claude Code and OpenClaw** — single `SKILL.md` with compatible frontmatter for both platforms.
 
@@ -115,7 +117,7 @@ In **detect mode**, the skill returns two sections:
 
 Trigger detect mode with: "detect," "flag only," "audit only," "just flag," "scan," or similar.
 
-## 36 Patterns Detected
+## 35 Patterns Detected
 
 ### Content Patterns
 

@@ -4,6 +4,32 @@ All notable changes to this project are documented here.
 
 ---
 
+## [3.4.0] — 2026-04-14
+
+### Added
+- **Guardrails section**: Input sanitization against prompt injection, language scope limitations (non-English handling), content-scope rules (skip code blocks/tables/frontmatter), and short-input handling (under 50 words skips structural checks)
+- **Creative context profile**: For screenplays, interviews, fiction, poetry — skips structural/rhythm checks, flags only Tier 1 vocabulary and chatbot artifacts
+- **Output format improvements**: Early exit for clean text ("No AI-isms detected"), structured issue format with severity tags `[P0/P1/P2]`, conditional second-pass audit (skipped for texts with <10 issues)
+- **Self-reference escape hatch expansion**: Scope limitation (under 100 words), quoted material handling rules for user input, chatbot artifact notes within quotes
+
+### Fixed
+- **Version sync**: All files now reference 3.4.0 (was 3.3.1 in SKILL.md, 3.3.0 in CHANGELOG, 3.2.0 in CLAUDE.md)
+- **Unicode corruption**: Replaced all 13 `` (U+FFFD replacement characters) with proper em dashes (`—`)
+- **Preserve structure contradiction**: Changed "preserve original structure" to "preserve intent, argument flow, and technical details; restructure only where flagged as AI pattern"
+- **Rewrite mandate vs. over-polishing warning**: Changed "remove all AI-isms" to "use judgment — preserve author voice when removing patterns would create uniformity"
+- **Mode detection ambiguity**: Added precedence rule ("scan and fix" defaults to rewrite mode)
+- **Em dash tolerance mismatch**: Changed LinkedIn from "2/post OK" to "1 per 500 words OK" for proportional consistency
+- **Filler phrases duplication**: Clarified that filler section only covers unique entries; word-table duplicates referenced to original sections
+- **Tier 3 density threshold**: Added floor ("or 2+ instances in texts under 200 words")
+- **Hit differently duplication**: Moved from standalone Tier 1 entry to cross-reference in emotional flatline section
+- **Rewrite-from-scratch guidance**: Added output behavior specification for saturated texts
+
+### Changed
+- Version bump to 3.4.0
+- Second-pass audit now conditional on issue count (reduces token cost for simple texts)
+
+---
+
 ## [3.3.0] — 2026-04-01
 
 ### Added
